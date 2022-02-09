@@ -1,0 +1,14 @@
+// 定義變數
+$view-width: 1440px;
+$view-min-width: 1200px;
+$six-columns-width: 540px;
+$total-step: 3;
+
+// 產生 stepper 數字
+@mixin genStepNumber($step) {
+  @for $i from 1 through $step {
+    &:nth-child(#{$i}) .step-circle::after {
+      content: "#{$i}";
+    }
+  }
+}

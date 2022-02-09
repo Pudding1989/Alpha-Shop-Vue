@@ -1,0 +1,79 @@
+// sizing: width & height
+$sizing: (
+  w: width,
+  h: height,
+);
+
+$scale: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+);
+
+@each $abbrev, $prop in $sizing {
+  @each $number, $value in $scale {
+    .#{$abbrev}-#{$number} {
+      #{$prop}: $value;
+    }
+  }
+}
+
+// spacing: margin & padding
+$space: 1rem;
+
+$spacing: (
+  0: 0,
+  1: (
+    $space * 0.25,
+  ),
+  2: (
+    $space * 0.5,
+  ),
+  3: (
+    $space * 0.75,
+  ),
+  4: (
+    $space * 1,
+  ),
+  5: (
+    $space * 1.25,
+  ),
+  6: (
+    $space * 1.5,
+  ),
+  7: (
+    $space * 1.75,
+  ),
+  8: (
+    $space * 2,
+  ),
+);
+
+@each $abbrev, $prop in (m: margin, p: padding) {
+  @each $number, $value in $spacing {
+    .#{$abbrev}-#{$number} {
+      #{$prop}: $value;
+    }
+    .#{$abbrev}t-#{$number} {
+      #{$prop}-top: $value;
+    }
+    .#{$abbrev}r-#{$number} {
+      #{$prop}-right: $value;
+    }
+    .#{$abbrev}b-#{$number} {
+      #{$prop}-bottom: $value;
+    }
+    .#{$abbrev}l-#{$number} {
+      #{$prop}-left: $value;
+    }
+    .#{$abbrev}x-#{$number} {
+      #{$prop}-left: $value;
+      #{$prop}-right: $value;
+    }
+    .#{$abbrev}y-#{$number} {
+      #{$prop}-top: $value;
+      #{$prop}-bottom: $value;
+    }
+  }
+}

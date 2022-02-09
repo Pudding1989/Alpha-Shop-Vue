@@ -1,0 +1,82 @@
+:root {
+  --body-background: #ffffff;
+  --theme-pink: #f67599;
+  --theme-deep-pink: #c45d7a;
+  --main-text-black: #2a2a2a;
+  // for header
+  --header-background: #ffffff;
+  --menu-border: rgba(42, 42, 42, 20%);
+  --tool-icon: #2a2a2a;
+  // for step
+  --step-disable: #afb1bd;
+  --step-line-active: #000000;
+  --step-one-fill: #2a2a2a;
+  --step-checked-fill: #333333;
+  // for form
+  --form-label-gray: #808080;
+  --form-input-border: #4a4a4a;
+  --placeholder: #999999;
+  --select-triangle: #2a2a2a;
+  // for radio input
+  --radio-label-border: #f0f0f5;
+  --radio-input-border: #222222;
+  --radio-input-background: #ffffff;
+  --radio-input-inset: #2a2a2a;
+  --radio-text: #000000;
+  --radio-describe: #000000;
+  // for cart
+  --cart-background: #ffffff;
+  --cart-border: #f0f0f5;
+  --cart-button-background: #f0f0f5;
+  --cart-button-svg: #000000;
+  --cart-price: #000000;
+  --quantity-input-font: Inter;
+  --quantity-input-weight: 500;
+  // for form-control button
+  --form-control-border: #e6e6eb;
+  --button-font-color: #000000;
+  // for footer
+  --footer-background: #f6f7f8;
+  --footer-subject: #808080;
+  --social-icon: #808080;
+}
+
+[data-theme="dark"] {
+  --body-background: #121212;
+  --main-text-black: #ffffff;
+  // for header
+  --header-background: #121212;
+  --menu-border: rgba(255, 255, 255, 20%);
+  --tool-icon: rgba(255, 255, 255, 80%);
+  // for step
+  --step-disable: rgba(240, 240, 245, 40%);
+  --step-line-active: #ffffff;
+  --step-one-fill: #333333;
+  // for form
+  --form-label-gray: rgba(255, 255, 255, 40%);
+  --form-input-border: #5e5e5e;
+  --placeholder: rgba(255, 255, 255, 30%);
+  --select-triangle: #5e5e5e;
+  // for radio input
+  --radio-label-border: #ffffff;
+  --radio-input-border: #333333;
+  --radio-input-background: #333333;
+  --radio-input-inset: #333333;
+  --radio-text: #ffffff;
+  --radio-describe: rgba(255, 255, 255, 40%);
+  // for cart
+  --cart-background: #383838;
+  --cart-border: rgba(255, 255, 255, 20%);
+  --cart-button-background: #808080;
+  --cart-button-svg: #333333;
+  --cart-price: #ffffff;
+  --quantity-input-font: Nunito Sans;
+  --quantity-input-weight: 700;
+  // for form-control button
+  --form-control-border: rgba(255, 255, 255, 20%);
+  --button-font-color: #ffffff;
+  // for footer
+  --footer-background: #333333;
+  --footer-subject: #ffffff;
+  --social-icon: rgba(255, 255, 255, 50%);
+}

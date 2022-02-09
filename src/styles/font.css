@@ -1,0 +1,19 @@
+body {
+  font-family: Noto Sans TC;
+}
+
+.title,
+.form-row label,
+.cost p {
+  font-weight: 700;
+}
+
+.menu li {
+  font-weight: 500;
+}
+
+product p,
+cost p,
+.step-circle::after {
+  font-family: Nunito Sans;
+}
