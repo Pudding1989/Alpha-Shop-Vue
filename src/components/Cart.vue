@@ -4,7 +4,7 @@
     <!-- product-list -->
     <div class="product-list">
       <div
-        v-for="(product, index) in productList"
+        v-for="(product, index) in OrderList"
         :key="index"
         class="product d-flex"
       >
@@ -99,14 +99,12 @@ const productList = [
     name: '破壞補丁修身牛仔褲',
     price: 3999,
     img: 'assets/product/ripped-jeans.svg',
-    amount: 1
   },
   {
     id: 1,
     name: '刷色直筒牛仔褲',
     price: 1299,
     img: 'assets/product/straight-jeans.svg',
-    amount: 1
   }
 ]
 
@@ -119,16 +117,35 @@ export default {
   },
   data() {
     return {
-      productList: productList
+      OrderList: ''
     }
   },
+  watch: {
+    OrderList: {
+      deep: true,
+      handler: function () {
+        // 校正數量
+        for (let order of this.OrderList) {
+          if (order.amount < 0) {
+            console.log('order.amount < 0')
+            order.amount = 0
+          }
+        }
 
+        const UserOrder = this.OrderList.map((product) => ({
+          id: product.id,
+          amount: product.amount
+        }))
+        localStorage.setItem('UserOrder', JSON.stringify(UserOrder))
+      }
+    }
+  },
   computed: {
     bill() {
       let subTotal = 0
       subTotal += this.shipmentFee
       // 用forEach常常會失效
-      for (let product of this.productList) {
+      for (let product of this.OrderList) {
         subTotal += product.price * product.amount
       }
       return subTotal
@@ -136,7 +153,7 @@ export default {
   },
   methods: {
     minusAmount(selectProductId) {
-      this.productList = this.productList.map((product) => {
+      this.OrderList = this.OrderList.map((product) => {
         if (product.amount > 0 && product.id === selectProductId) {
           return { ...product, amount: --product.amount }
         }
@@ -144,7 +161,7 @@ export default {
       })
     },
     addAmount(selectProductId) {
-      this.productList = this.productList.map((product) => {
+      this.OrderList = this.OrderList.map((product) => {
         if (product.id === selectProductId) {
           return { ...product, amount: ++product.amount }
         }
@@ -160,6 +177,23 @@ export default {
         minimumFractionDigits: 0
       })
     }
+  },
+  created() {
+    // 從 localStorage 讀取商品數量
+    this.OrderList = productList.map((product) => {
+      if (localStorage.getItem('UserOrder')) {
+        const userOrder = JSON.parse(localStorage.getItem('UserOrder'))
+        // 比對商品ID
+        for (let order of userOrder) {
+          if (order.id === product.id) {
+            return { ...product, amount: order.amount }
+          }
+        }
+      } else {
+        // 商品數量初始值
+        return { ...product, amount: 1 }
+      }
+    })
   }
 }
 </script>

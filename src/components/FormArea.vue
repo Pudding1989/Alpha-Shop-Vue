@@ -10,7 +10,7 @@
         <div class="form-row d-flex justify-content-between">
           <div class="form-select mobile-short desktop-short">
             <label for="gender">稱謂</label>
-            <select name="gender" v-model="gender" id="gender" required>
+            <select name="gender" v-model="User.gender" id="gender" required>
               <option value="male" selected>先生</option>
               <option value="female">女士</option>
             </select>
@@ -19,7 +19,7 @@
             <label for="name">姓名</label>
             <input
               type="text"
-              v-model="name"
+              v-model="User.name"
               id="name"
               name="name"
               placeholder="請輸入姓名"
@@ -34,7 +34,7 @@
             <label for="phone">電話</label>
             <input
               type="tel"
-              v-model="phone"
+              v-model="User.phone"
               id="phone"
               name="phone"
               placeholder="請輸入行動電話"
@@ -45,7 +45,7 @@
             <label for="email">Email</label>
             <input
               type="email"
-              v-model="email"
+              v-model="User.email"
               id="email"
               name="email"
               placeholder="請輸入電子郵件"
@@ -57,7 +57,7 @@
         <div class="form-row desktop-flex justify-content-between">
           <div class="form-select desktop-short">
             <label for="regin">縣市</label>
-            <select name="regin" v-model="regin" id="regin" required>
+            <select name="regin" v-model="User.regin" id="regin" required>
               <option value="" selected disabled>請選擇縣市</option>
               <option
                 v-for="(city, index) in taiwan"
@@ -72,7 +72,7 @@
             <label for="address">地址</label>
             <input
               type="text"
-              v-model="address"
+              v-model="User.address"
               id="address"
               name="address"
               placeholder="請輸入地址"
@@ -91,7 +91,7 @@
         <label for="standard" class="form-radio d-flex align-content-center">
           <input
             type="radio"
-            v-model="shipment"
+            v-model="User.shipment"
             name="shipment"
             value="standard"
             id="standard"
@@ -108,7 +108,7 @@
         <label for="dhl" class="form-radio">
           <input
             type="radio"
-            v-model="shipment"
+            v-model="User.shipment"
             name="shipment"
             value="dhl"
             id="dhl"
@@ -132,7 +132,7 @@
             <label for="owner">持卡人姓名</label>
             <input
               type="text"
-              v-model="cardOwner"
+              v-model="User.cardOwner"
               id="owner"
               name="card-owner"
               placeholder="John Don"
@@ -146,7 +146,7 @@
             <label for="serial">卡號</label>
             <input
               type="number"
-              v-model="serial"
+              v-model="User.serial"
               id="serial"
               name="serial"
               placeholder="1111 2222 3333 4444"
@@ -160,7 +160,7 @@
             <label for="thru">有效期限</label>
             <input
               type="text"
-              v-model="thru"
+              v-model="User.thru"
               id="thru"
               name="thru"
               placeholder="MM/YY"
@@ -171,8 +171,7 @@
             <label for="code">CVC / CCV</label>
             <input
               type="number"
-              v-model="code"
-              max="999"
+              v-model="User.code"
               id="code"
               name="code"
               placeholder="123"
@@ -220,25 +219,37 @@ export default {
   },
   data() {
     return {
-      gender: 'male',
-      name: '',
-      phone: '',
-      email: '',
-      regin: '',
-      address: '',
-      shipment: 'standard',
-      cardOwner: '',
-      serial: '',
-      thru: '',
-      code: '',
+      User: {
+        gender: 'male',
+        name: '',
+        phone: '',
+        email: '',
+        regin: '',
+        address: '',
+        shipment: 'standard',
+        cardOwner: '',
+        serial: '',
+        thru: '',
+        code: ''
+      },
       taiwan: taiwan
     }
   },
-  watch:{
-    shipment: function(){
-      console.log('shipment change');
-      this.$emit('shipment',this.shipment)
+  watch: {
+    // 使用字串可以單獨監聽物件裡的屬性
+    'User.shipment': function () {
+      this.$emit('shipment', this.User.shipment)
+    },
+    User: {
+      deep: true,
+      handler: function () {
+        localStorage.setItem('UserInfo', JSON.stringify(this.User))
+      }
     }
+  },
+  created() {
+    localStorage.getItem('UserInfo') &&
+      (this.User = JSON.parse(localStorage.getItem('UserInfo')))
   }
 }
 </script>
