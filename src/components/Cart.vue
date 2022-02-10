@@ -44,7 +44,7 @@
               </button>
               <input
                 type="number"
-                :value="product.amount"
+                v-model="product.amount"
                 class="order-input"
               />
               <button
@@ -98,13 +98,13 @@ const productList = [
     id: 0,
     name: '破壞補丁修身牛仔褲',
     price: 3999,
-    img: 'assets/product/ripped-jeans.svg',
+    img: 'assets/product/ripped-jeans.svg'
   },
   {
     id: 1,
     name: '刷色直筒牛仔褲',
     price: 1299,
-    img: 'assets/product/straight-jeans.svg',
+    img: 'assets/product/straight-jeans.svg'
   }
 ]
 
@@ -124,12 +124,12 @@ export default {
     OrderList: {
       deep: true,
       handler: function () {
-        // 校正數量
         for (let order of this.OrderList) {
-          if (order.amount < 0) {
-            console.log('order.amount < 0')
-            order.amount = 0
-          }
+          // 修正資料型別
+          typeof order.amount !== Number &&
+            (order.amount = Number(order.amount))
+          // 修正數量
+          order.amount < 0 && (order.amount = 0)
         }
 
         const UserOrder = this.OrderList.map((product) => ({
