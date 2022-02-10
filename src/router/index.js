@@ -8,12 +8,19 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    redirect: '/checkout'
+    redirect: '/1'
   },
   {
-    path: '/checkout',
+    // 限定配對數字，到checkout裡讀取 :step渲染畫面
+    path: '/:step(\\d+)',
+    // route name 資料型別不能用數字，router.push 遇到0會壞掉
     name: 'checkout',
     component: Checkout
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    redirect: '/1'
   }
 ]
 

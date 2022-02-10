@@ -4,7 +4,7 @@
     :class="{ initial: currentStep === 0 }"
   >
     <button
-      @click.stop.prevent="$emit('previous-btn')"
+      @click.stop.prevent="previousBtn()"
       type="button"
       class="btn"
       id="previous"
@@ -28,12 +28,7 @@
       上一步
     </button>
 
-    <button
-      @click.stop.prevent="$emit('next-btn')"
-      type="button"
-      class="btn"
-      id="next"
-    >
+    <button @click.stop.prevent="nextBtn()" type="button" class="btn" id="next">
       {{ currentStep === 2 ? '確認下單' : '下一步' }}
       <!-- SVG -->
       <svg
@@ -62,6 +57,22 @@ export default {
     currentStep: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    previousBtn() {
+      this.currentStep > 0 &&
+        this.$router.push({
+          name: 'checkout',
+          params: { step: `${this.currentStep}` }
+        })
+    },
+    nextBtn() {
+      this.currentStep < 2 &&
+        this.$router.push({
+          name: 'checkout',
+          params: { step: `${this.currentStep + 2}` }
+        })
     }
   }
 }

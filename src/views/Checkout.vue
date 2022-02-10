@@ -12,11 +12,7 @@
       <!-- cart -->
       <Cart :shipmentFee="shipmentFee" />
       <!-- form-control button -->
-      <FormControl
-        :currentStep="currentStep"
-        @previous-btn="currentStep > 0 && currentStep--"
-        @next-btn="currentStep < 2 && currentStep++"
-      />
+      <FormControl :currentStep="currentStep" />
     </form>
   </main>
 </template>
@@ -45,7 +41,25 @@ export default {
       shipment === 'standard'
         ? (this.shipmentFee = 0)
         : (this.shipmentFee = 500)
+    },
+    urlStep() {
+      // 讀取 params 來切換 step
+      let paramsStep = Number(this.$route.params.step)
+      if (paramsStep < 1 || paramsStep > 3) {
+        this.$router.push({ params: { step: '1' } })
+      } else {
+        this.currentStep = --paramsStep
+      }
     }
+  },
+  watch: {
+    '$route.params.step': function () {
+      this.urlStep()
+    }
+  },
+  created() {
+    // 重新整理
+    this.urlStep()
   }
 }
 </script>
