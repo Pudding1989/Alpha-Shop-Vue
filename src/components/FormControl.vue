@@ -73,6 +73,7 @@ export default {
           name: 'checkout',
           params: { step: `${this.currentStep + 2}` }
         })
+      this.currentStep === 2 && this.$emit('modal-signal', 'change boolean value to open modal')
     }
   }
 }

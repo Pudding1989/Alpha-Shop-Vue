@@ -39,9 +39,13 @@
   --footer-background: #f6f7f8;
   --footer-subject: #808080;
   --social-icon: #808080;
+  // for modal
+  --modal-background-center: rgba(255, 255, 255, 0.25);
+  --modal-background-around: rgba(0, 0, 0, 50%);
+  --modal-dialog-background: rgba(255, 255, 255, 75%);
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --body-background: #121212;
   --main-text-black: #ffffff;
   // for header
@@ -79,4 +83,8 @@
   --footer-background: #333333;
   --footer-subject: #ffffff;
   --social-icon: rgba(255, 255, 255, 50%);
+  // for modal
+  --modal-background-center: rgba(94, 94, 94, 10%);
+  --modal-background-around: rgba(0, 0, 0, 60%);
+  --modal-dialog-background: rgba(255, 255, 255, 15%);
 }

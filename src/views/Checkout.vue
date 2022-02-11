@@ -6,14 +6,27 @@
         <!-- stepper -->
         <Stepper :currentStep="currentStep" />
         <!-- form-area -->
-        <FormArea :currentStep="currentStep" @shipment="feeCal" />
+        <FormArea
+          :currentStep="currentStep"
+          @shipment="shipment = $event"
+          @user-info="UserInfo = $event"
+        />
       </div>
 
       <!-- cart -->
-      <Cart :shipmentFee="shipmentFee" />
+      <Cart :shipment="shipment" @bill-Info="billInfo = $event" />
       <!-- form-control button -->
-      <FormControl :currentStep="currentStep" />
+      <FormControl
+        :currentStep="currentStep"
+        @modal-signal="modalSignal = !modalSignal"
+      />
     </form>
+    <!-- Modal -->
+    <Modal
+      :modalSignal="modalSignal"
+      :UserInfo="UserInfo"
+      :billInfo="billInfo"
+    />
   </main>
 </template>
 
@@ -22,26 +35,26 @@ import Stepper from '../components/Stepper.vue'
 import FormControl from '../components/FormControl.vue'
 import FormArea from '../components/FormArea'
 import Cart from '../components/Cart.vue'
+import Modal from '../components/Modal.vue'
 
 export default {
   components: {
     Stepper,
     FormArea,
     FormControl,
-    Cart
+    Cart,
+    Modal
   },
   data() {
     return {
       currentStep: 0,
-      shipmentFee: 0
+      shipment: '',
+      modalSignal: false,
+      UserInfo: {},
+      billInfo: 0
     }
   },
   methods: {
-    feeCal(shipment) {
-      shipment === 'standard'
-        ? (this.shipmentFee = 0)
-        : (this.shipmentFee = 500)
-    },
     urlStep() {
       // 讀取 params 來切換 step
       let paramsStep = Number(this.$route.params.step)

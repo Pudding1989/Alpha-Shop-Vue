@@ -110,8 +110,8 @@ const productList = [
 
 export default {
   props: {
-    shipmentFee: {
-      type: Number,
+    shipment: {
+      type: String,
       required: true
     }
   },
@@ -138,9 +138,15 @@ export default {
         }))
         localStorage.setItem('UserOrder', JSON.stringify(UserOrder))
       }
+    },
+    bill: function () {
+      this.$emit('bill-Info', this.bill)
     }
   },
   computed: {
+    shipmentFee() {
+      return this.shipment === 'standard' ? 0 : 500
+    },
     bill() {
       let subTotal = 0
       subTotal += this.shipmentFee
@@ -194,7 +200,9 @@ export default {
         return { ...product, amount: 1 }
       }
     })
-  }
+    // 傳送總金額初始值
+    this.$emit('bill-Info', this.bill)
+  },
 }
 </script>
 

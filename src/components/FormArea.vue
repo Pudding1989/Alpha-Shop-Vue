@@ -88,7 +88,7 @@
           <h3 class="title">運送方式</h3>
         </div>
 
-        <label for="standard" class="form-radio d-flex align-content-center">
+        <label for="standard" class="form-radio d-flex align-items-center">
           <input
             type="radio"
             v-model="User.shipment"
@@ -105,7 +105,7 @@
           <span>免費</span>
         </label>
 
-        <label for="dhl" class="form-radio">
+        <label for="dhl" class="form-radio d-flex align-items-center">
           <input
             type="radio"
             v-model="User.shipment"
@@ -243,6 +243,7 @@ export default {
     User: {
       deep: true,
       handler: function () {
+        this.$emit('user-info',this.User)
         localStorage.setItem('UserInfo', JSON.stringify(this.User))
       }
     }
@@ -250,6 +251,7 @@ export default {
   created() {
     localStorage.getItem('UserInfo') &&
       (this.User = JSON.parse(localStorage.getItem('UserInfo')))
+    this.$emit('user-info',this.User)
   }
 }
 </script>
