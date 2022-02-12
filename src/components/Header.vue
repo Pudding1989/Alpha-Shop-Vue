@@ -430,7 +430,7 @@ input#burger-toggle:checked ~ nav {
 }
 
 // desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   header {
     height: 60px;
     max-width: $view-width;

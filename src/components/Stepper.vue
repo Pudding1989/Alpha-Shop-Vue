@@ -162,7 +162,7 @@ export default {
 }
 
 // desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   .step {
     .step-circle {
       width: 24px;

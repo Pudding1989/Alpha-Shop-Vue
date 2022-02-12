@@ -465,7 +465,7 @@ label.form-radio {
 }
 
 // desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   .form-area {
     .desktop-short {
       width: percentage(160px / $six-columns-width);

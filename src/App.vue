@@ -44,7 +44,7 @@ body {
   }
 }
 
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   body {
     min-width: $view-min-width;
   }

@@ -128,8 +128,7 @@ export default {
 
   margin: $modal-height auto 0;
   border-radius: 0.5rem;
-  min-width: 100px;
-  max-width: 500px;
+  min-width: 300px;
 
   padding: 1.5rem;
   background-color: var(--modal-dialog-background);
@@ -146,8 +145,7 @@ export default {
   }
 
   h3.title {
-    font-size: 1.5rem;
-    line-height: 1.5rem;
+    font-size: 2rem;
   }
 
   p {
@@ -158,10 +156,13 @@ export default {
   /* The Close Button */
   button.close {
     cursor: pointer;
-    width: 2rem;
     fill: var(--placeholder);
     transition: transform 0.35s ease-out;
     transform: scale(100%);
+
+    svg {
+      width: 1.5rem;
+    }
 
     &:hover {
       transform: scale(160%);
@@ -206,5 +207,12 @@ export default {
 
 .fade-leave-active {
   transition: opacity 0.35s ease-in-out;
+}
+
+@media screen and (min-width: $breakpoint) {
+  .modal-dialog {
+    max-width: 500px;
+    padding: 1.5rem;
+  }
 }
 </style>

@@ -196,7 +196,7 @@ footer {
 }
 
 //desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   footer {
     display: block;
     // 背景色

@@ -142,7 +142,7 @@ export default {
 }
 
 // desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   .form-control {
     .btn {
       width: percentage(174px / $six-columns-width);

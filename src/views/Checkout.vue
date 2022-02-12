@@ -81,13 +81,7 @@ export default {
 // mobile first
 // main layout
 main {
-  max-width: 375px;
-  margin: 16px auto 40px;
-}
-
-// main layout
-main {
-  max-width: 375px;
+  max-width: $breakpoint;
   margin: 16px auto 40px;
 }
 
@@ -127,7 +121,7 @@ main {
 }
 
 // desktop layout
-@media screen and (min-width: 376px) {
+@media screen and (min-width: $breakpoint) {
   main {
     max-width: $view-width;
     margin: 80px auto 120px auto;
