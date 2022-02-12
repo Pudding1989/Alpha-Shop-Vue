@@ -36,7 +36,7 @@
           </div>
           <div class="modal-body">
             <p>原始資料輸出如下...</p>
-            <pre>{{ modalContent }}</pre>
+            <pre>{{ modalFormat }}</pre>
           </div>
         </div>
       </transition>
@@ -46,27 +46,16 @@
 
 <script>
 export default {
-  props: {
-    modalSignal: {
-      type: Boolean,
-      required: true
-    },
-    UserInfo: {
-      type: Object,
-      required: true
-    },
-    billInfo: {
-      type: Number,
-      required: true
-    }
-  },
   data() {
     return {
-      modal: false
+      modal: false,
+      UserInfo: {},
+      bill: -1,
+
     }
   },
   computed: {
-    modalContent() {
+    modalFormat() {
       const content = Object.assign(
         {},
         {
@@ -81,17 +70,30 @@ export default {
           cardnumber: `${this.UserInfo.serial}`,
           expdate: `${this.UserInfo.thru}`,
           ccv: `${this.UserInfo.code}`,
-          totalPrice: this.billInfo
+          totalPrice: this.bill
         }
       )
       return content
     }
   },
-  watch: {
-    modalSignal: function () {
-      this.modal = true
-      console.log(this.modalContent)
-    }
+    // 要比事件發送早一個階段開始監聽
+  beforeMount() {
+    // 接收 modal 要顯示的資料
+    this.$bus.$on('userInfo', (userInfo) => {
+      this.UserInfo = userInfo
+    })
+    this.$bus.$on('bill', (bill) => {
+      this.bill = bill
+    })
+    // 用 event bus 監聽「確認下單」
+    this.$bus.$on('modal', (visible) => {
+      this.modal = visible
+    })
+  },
+  beforeDestroy() {
+    this.$bus.$off('userInfo')
+    this.$bus.$off('bill')
+    this.$bus.$off('modal')
   }
 }
 </script>

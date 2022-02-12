@@ -6,27 +6,16 @@
         <!-- stepper -->
         <Stepper :currentStep="currentStep" />
         <!-- form-area -->
-        <FormArea
-          :currentStep="currentStep"
-          @shipment="shipment = $event"
-          @user-info="UserInfo = $event"
-        />
+        <FormArea :currentStep="currentStep" />
       </div>
 
       <!-- cart -->
-      <Cart :shipment="shipment" @bill-Info="billInfo = $event" />
+      <Cart />
       <!-- form-control button -->
-      <FormControl
-        :currentStep="currentStep"
-        @modal-signal="modalSignal = !modalSignal"
-      />
+      <FormControl :currentStep="currentStep" />
     </form>
     <!-- Modal -->
-    <Modal
-      :modalSignal="modalSignal"
-      :UserInfo="UserInfo"
-      :billInfo="billInfo"
-    />
+    <Modal />
   </main>
 </template>
 
@@ -35,7 +24,7 @@ import Stepper from '../components/Stepper.vue'
 import FormControl from '../components/FormControl.vue'
 import FormArea from '../components/FormArea'
 import Cart from '../components/Cart.vue'
-import Modal from '../components/Modal.vue'
+import Modal from '../components/Modal'
 
 export default {
   components: {
@@ -47,11 +36,7 @@ export default {
   },
   data() {
     return {
-      currentStep: 0,
-      shipment: '',
-      modalSignal: false,
-      UserInfo: {},
-      billInfo: 0
+      currentStep: 0
     }
   },
   methods: {

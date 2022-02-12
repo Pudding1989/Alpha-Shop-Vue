@@ -237,13 +237,11 @@ export default {
   },
   watch: {
     // 使用字串可以單獨監聽物件裡的屬性
-    'User.shipment': function () {
-      this.$emit('shipment', this.User.shipment)
-    },
     User: {
       deep: true,
       handler: function () {
-        this.$emit('user-info',this.User)
+        // 改用 event bus 傳送
+        this.$bus.$emit('userInfo', this.User)
         localStorage.setItem('UserInfo', JSON.stringify(this.User))
       }
     }
@@ -251,7 +249,11 @@ export default {
   created() {
     localStorage.getItem('UserInfo') &&
       (this.User = JSON.parse(localStorage.getItem('UserInfo')))
-    this.$emit('user-info',this.User)
+  },
+  mounted() {
+    // 等到元素綁定 vue後才發送
+    // 作為填資料前的初始值
+    this.$bus.$emit('userInfo', this.User)
   }
 }
 </script>

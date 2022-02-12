@@ -73,7 +73,8 @@ export default {
           name: 'checkout',
           params: { step: `${this.currentStep + 2}` }
         })
-      this.currentStep === 2 && this.$emit('modal-signal', 'change boolean value to open modal')
+        // 改用event bus 傳送事件
+      this.currentStep === 2 && this.$bus.$emit('modal', true)
     }
   }
 }

@@ -109,15 +109,10 @@ const productList = [
 ]
 
 export default {
-  props: {
-    shipment: {
-      type: String,
-      required: true
-    }
-  },
   data() {
     return {
-      OrderList: ''
+      OrderList: '',
+      shipmentFee: -1
     }
   },
   watch: {
@@ -140,13 +135,12 @@ export default {
       }
     },
     bill: function () {
-      this.$emit('bill-Info', this.bill)
+      // 改由 event bus 傳送
+      // created 階段操作 OrderList會改變bill，不需在 mounted階段發送
+      this.$bus.$emit('bill', this.bill)
     }
   },
   computed: {
-    shipmentFee() {
-      return this.shipment === 'standard' ? 0 : 500
-    },
     bill() {
       let subTotal = 0
       subTotal += this.shipmentFee
@@ -200,9 +194,18 @@ export default {
         return { ...product, amount: 1 }
       }
     })
-    // 傳送總金額初始值
-    this.$emit('bill-Info', this.bill)
   },
+  beforeMount() {
+    // 要比事件發送早一個階段開始監聽
+    this.$bus.$on('userInfo', (userInfo) => {
+      userInfo.shipment === 'standard'
+        ? (this.shipmentFee = 0)
+        : (this.shipmentFee = 500)
+    })
+  },
+  beforeDestroy() {
+    this.$bus.$off('userInfo')
+  }
 }
 </script>
 
