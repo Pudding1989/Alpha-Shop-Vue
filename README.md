@@ -17,8 +17,8 @@
 <img src="./screenshot/checkout.png" width="80%"/>
 <img src="./screenshot/modal.png" width="80%"/>
 <img src="./screenshot/console.png" width="80%"/>
-<img src="./screenshot/mobile.png" width="80%"/>
-<img src="./screenshot/burger.png" width="80%"/>
+<img src="./screenshot/mobile.png" width="40%"/>
+<img src="./screenshot/burger.png" width="40%"/>
 
 <br>
 
@@ -52,8 +52,6 @@ npm install
 ```
 
 2. 輸入執行指令，啟動伺服器
-
-輸入執行指令，開啟伺服器
 
 ```text
 npm run serve
