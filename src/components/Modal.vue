@@ -1,7 +1,15 @@
 <template>
-  <!-- Modal background-->
-  <transition name="fade" mode="in-out">
-    <div v-show="modal" @click.stop.prevent="modal = false" class="modal">
+  <transition name="delay">
+    <div class="modal" v-show="modal">
+      <!-- Modal background-->
+      <transition name="fade">
+        <div
+          class="modal-background"
+          v-show="modal"
+          @click.stop.prevent="modal = false"
+        ></div>
+      </transition>
+
       <!-- Modal dialog -->
       <transition name="slide">
         <div
@@ -50,8 +58,7 @@ export default {
     return {
       modal: false,
       UserInfo: {},
-      bill: -1,
-
+      bill: -1
     }
   },
   computed: {
@@ -76,7 +83,7 @@ export default {
       return content
     }
   },
-    // 要比事件發送早一個階段開始監聽
+  // 要比事件發送早一個階段開始監聽
   beforeMount() {
     // 接收 modal 要顯示的資料
     this.$bus.$on('userInfo', (userInfo) => {
@@ -112,16 +119,50 @@ export default {
   overflow-y: auto;
 
   padding: 0 10%;
-  // for 不支援漸變屬性瀏覽器
-  background-color: var(--modal-background-around);
 
-  background: radial-gradient(
-    circle at center,
-    var(--modal-background-center),
-    var(--modal-background-around)
-  );
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  //  延遲關閉modal，顯示 modal background 過場動畫
+  //  最少要跟整個元件的最後一個 leave-active 動畫同時
+  --modal-leave-delay: 0.35s;
+
+  &.delay-leave-active {
+    transition: none var(--modal-leave-delay);
+  }
+  .modal-background {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 100%;
+    // for 不支援漸變屬性瀏覽器
+    background-color: var(--modal-background-around);
+
+    background: radial-gradient(
+      circle at center,
+      var(--modal-background-center),
+      var(--modal-background-around)
+    );
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    // for modal background
+    &.fade-enter,
+    &.fade-leave-to {
+      opacity: 0;
+    }
+
+    &.fade-enter-to,
+    &.fade-leave {
+      opacity: 1;
+    }
+
+    &.fade-enter-active {
+      transition: opacity 1.8s ease-in-out;
+    }
+
+    &.fade-leave-active {
+      transition: opacity var(--modal-leave-delay) ease-in-out;
+    }
+  }
 }
 
 .modal-dialog {
@@ -189,26 +230,6 @@ export default {
 .slide-enter-active,
 .slide-leave-active {
   transition: transform 0.35s ease-in-out;
-}
-
-// for modal background
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to,
-.fade-leave {
-  opacity: 100%;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1.8s ease-in-out;
-}
-
-.fade-leave-active {
-  transition: opacity 0.35s ease-in-out;
 }
 
 @media screen and (min-width: $breakpoint) {
