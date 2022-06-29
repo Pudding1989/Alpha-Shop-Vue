@@ -338,7 +338,7 @@ input#burger-toggle:checked ~ nav {
   .menu-item,
   .toolbar {
     transition: opacity 0.35s ease-in 0.25s;
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
@@ -467,7 +467,7 @@ input#burger-toggle:checked ~ nav {
   // 消除漢堡排設定
   .menu-item,
   .toolbar {
-    opacity: 100%;
+    opacity: 1;
     border-top: none;
     padding: 0;
     margin: 0;
